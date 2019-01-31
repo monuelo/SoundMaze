@@ -1,31 +1,76 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <title>Maze game!</title>
+  <title>SoundMaze</title>
   <script src="https://unpkg.com/@tensorflow/tfjs"></script>
   <script src="https://unpkg.com/@tensorflow-models/speech-commands"></script>
-  <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.2.13/p5.min.js"></script>       
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+  <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.2.13/p5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+    crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/app.css">
 </head>
+
 <body>
-    <script  src="js/index.js"></script>
-    <button id="up" onmousedown="collect(0)" onmouseup="collect(null)">Up</button>
-    <button id="right" onmousedown="collect(1)" onmouseup="collect(null)">Right</button>
-    <button id="down" onmousedown="collect(2)" onmouseup="collect(null)">Down</button>
-    <button id="left" onmousedown="collect(3)" onmouseup="collect(null)">Left</button>
-    <button id="noise" onmousedown="collect(4)" onmouseup="collect(null)">Noise</button>
-    <div id="console"></div>
-    <br /><br />
-    <button id="train" onclick="train()">Train</button>
-    <script src="app.js"></script>
-    <br /><br />
-    <button id="listen" onclick="listen()">Listen</button>
-    <input type="range" id="output" min="0" max="10" step="0.1">
-  </body>
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">SoundMaze</a>
+  </nav>
+  <div class="container intro">
+    <p>SoundMaze</p>
+    <span>is a trainable labyrinth where every movement is triggered by a sound.</span>
+  </div>
+  <div class="tutorial">
+    <h1>How to Play?</h1>
+    <div class="container-fluid">
+      <p>
+        To train the character, you need to click and hold the joystick button whose direction you want to train. While
+        doing this, speak the sound you want the character to hear to perform that move.
+      </p>
+      <p>
+        Then, when you train all the moves, press the <strong>Train</strong> button to build the model. </h3>
+        <p>
+          When the model is trained, press the <strong>Listen</strong> button and enjoy.
+        </p>
+        <p class="info"><i class="fas fa-info-circle"></i> Remember that you can stop and train your model again so
+          that you can achieve a better result.</p>
+    </div>
+  </div>
+  <div class="controller">
+    <div class="joystick">
+      <row>
+        <button class="fas fa-chevron-circle-up" id="up" onmousedown="collect(0)" onmouseup="collect(null)"></button>
+      </row>
+      <row>
+        <button class="fas fa-chevron-circle-left" id="left" onmousedown="collect(3)" onmouseup="collect(null)"></button>
+        <button class="fas fa-circle-notch" id="noise" onmousedown="collect(4)" onmouseup="collect(null)"></button>
+        <button class="fas fa-chevron-circle-right" id="right" onmousedown="collect(1)" onmouseup="collect(null)"></button>
+      </row>
+      <row>
+        <button class="fas fa-chevron-circle-down" id="down" onmousedown="collect(2)" onmouseup="collect(null)"></button>
+      </row>
+    </div>
+    <div id="console">SoundMaze Console</div>
+    <div class="buttons">
+      <button class="btn btn-sound btn-block" id="train" onclick="train()">Train</button>
+      <button class="btn btn-sound btn-block" id="listen" onclick="listen()">Listen</button>
+    </div>
+  </div>
+  <script src="js/maze.js"></script>
+  <script src="js/model.js"></script>
+</body>
 
 </html>
